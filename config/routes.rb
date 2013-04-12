@@ -1,8 +1,36 @@
 RailsStore::Application.routes.draw do
-  resources :reviews
 
-  resources :products
+    
+    get '/reviews/new/(.:format)', :controller => 'reviews', :action => 'new', :as => 'new_review'
+    post '/reviews(.:format)', :controller => 'reviews', :action => 'create'
 
+    get '/reviews', :to => 'reviews#index', :as => 'reviews'
+
+    # compare stuff that resources gets us to what we wrote -> rake routes
+
+  resources :products #you can tell your resources to only use a certain set of routes
+
+  root :to => 'products#index'
+
+  get '/cart', :to => 'products#add_to_cart'
+  get '/cart', :to => 'products#add_to_cart'
+
+  resources :reviews, :only => [:show]
+
+# rake routes
+#     products GET    /products(.:format)          products#index
+#              POST   /products(.:format)          products#create
+#  new_product GET    /products/new(.:format)      products#new
+# edit_product GET    /products/:id/edit(.:format) products#edit
+#      product GET    /products/:id(.:format)      products#show
+#              PUT    /products/:id(.:format)      products#update
+#              DELETE /products/:id(.:format)      products#destroy
+#         root        /                            products#index
+#   new_review GET    /new_review(.:format)        reviews#new
+#         cart GET    /cart(.:format)              products#update
+# rake db:migrate once you've checked
+
+end
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
@@ -60,4 +88,3 @@ RailsStore::Application.routes.draw do
   # This is a legacy wild controller route that's not recommended for RESTful applications.
   # Note: This route will make all actions in every controller accessible via GET requests.
   # match ':controller(/:action(/:id))(.:format)'
-end

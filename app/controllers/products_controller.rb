@@ -1,4 +1,12 @@
 class ProductsController < ApplicationController
+  
+  before_filter :products_array
+  
+  def products_array
+    @products = Product.all.to_a
+  end
+
+
   # GET /products
   # GET /products.json
   def index
@@ -53,12 +61,22 @@ class ProductsController < ApplicationController
     end
   end
 
+  # def add_to_cart 
+  #   id = params[:id]
+  #   @product = Product.find id
+  #   @product.in_cart = true
+  #   @product.save
+
+  #   @product.update_attributes({:in_cart => true})
+  # end
+
   # PUT /products/1
   # PUT /products/1.json
   def update
     @product = Product.find(params[:id])
 
-    respond_to do |format|
+    respond_to do |format| #respond_to is a method that looks inside the params hash that exposes format
+      #passing the format into this block -> when the format is HTML, blah blah, when JSON, blah blahh
       if @product.update_attributes(params[:product])
         format.html { redirect_to @product, notice: 'Product was successfully updated.' }
         format.json { head :no_content }

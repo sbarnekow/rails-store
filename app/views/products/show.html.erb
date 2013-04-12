@@ -7,14 +7,23 @@
 
 <p>
   <b>Price:</b>
-  <%= @product.price %>
+  <%= number_to_currency(@product.price) %>
 </p>
+<p>
 
 <p>
-  <b><a href='/reviews/new?product_id=<%= @product.id %>'> Create a New Review:</a></b>
-</p>
+  <b><a href="/reviews/new/?product_id=<%= @product[:id] %>">Create A New Review</a></b>
+<p>
 
-<%= render :partial => 'reviews/form' %>
+<p>
+  <b><a href="/product/cart?product_id=<%= @product.id %>/add-to-cart">Add to Cart</a></b>
+<p>
+
+  <p  <b><a href="/product/cart?product_id=<%= @product.id %>/remove-from-cart">Remove from Cart</a></b>>
+
+<p>
+
 
 <%= link_to 'Edit', edit_product_path(@product) %> |
 <%= link_to 'Back', products_path %>
+
