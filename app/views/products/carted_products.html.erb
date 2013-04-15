@@ -1,0 +1,12 @@
+<div class="cart_page">
+  <h2> TinyStore Current Cart Items </h2>
+    <table>
+      <% @carted_products.each do |product| %>
+        <tr>
+          <td><%= product.name %></td>
+          <td><%= number_to_currency(product.price) %></td>
+        </tr>
+      <% end %>
+    </table>
+</div>
+<button>Checkout</button>

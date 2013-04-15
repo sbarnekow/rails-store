@@ -1,12 +1,26 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>The Tiny Store</title>
+  <title>TinyStore</title>
+  <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.1/css/bootstrap-combined.min.css" rel="stylesheet">
   <%= stylesheet_link_tag    "application", :media => "all" %>
   <%= javascript_include_tag "application" %>
   <%= csrf_meta_tags %>
 </head>
 <body>
+  <div class="container">
+    <h1> Welcome to TinyStore <h1>
+      <div class="navbar">
+        <div class="navbar-inner">
+          <a class="brand" href="/">TinyStore</a>
+      <ul class="nav">
+        <li class="active" title="link to home"><a href='/'>Home</a></li>
+        <li class="active" title="link to products"><a href='/products'>Products</a></li>
+        <li class="active" title="link to cart"><a href='/yourcart'>Checkout</a></li>
+      </ul>
+    </div>
+  </div>
+</div>
 
 <%= yield %>
 

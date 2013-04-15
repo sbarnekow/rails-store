@@ -1,23 +1,24 @@
 RailsStore::Application.routes.draw do
+resources :reviews, :only => [:new, :create] 
+resources :products #you can tell your resources to only use a certain set of routes
+root :to => 'products#index'
 
-    
-    get '/reviews/new/(.:format)', :controller => 'reviews', :action => 'new', :as => 'new_review'
-    post '/reviews(.:format)', :controller => 'reviews', :action => 'create'
+get '/reviews', :controller => 'reviews', :action => 'new', :as => 'new_review'
+post '/reviews(.:format)', :controller => 'reviews', :action => 'create', :as => 'review'
+get '/reviews/:id(.:format)', :controller => 'reviews', :action => 'show', :as => 'review'
+get '/reviews/:id/new', :controller => 'reviews', :action => 'new', :as => 'new_review'
+get '/reviews/:id/edit(.:format)', :to => 'products#edit'
 
-    get '/reviews', :to => 'reviews#index', :as => 'reviews'
+get 'product/cart(.:format)', :to => 'products#carted_products'
+get '/yourcart', :to => 'products#carted_products'
 
-    # compare stuff that resources gets us to what we wrote -> rake routes
+end
 
-  resources :products #you can tell your resources to only use a certain set of routes
 
-  root :to => 'products#index'
 
-  get '/cart', :to => 'products#add_to_cart'
-  get '/cart', :to => 'products#add_to_cart'
 
-  resources :reviews, :only => [:show]
 
-# rake routes
+#         root        /                            products#index
 #     products GET    /products(.:format)          products#index
 #              POST   /products(.:format)          products#create
 #  new_product GET    /products/new(.:format)      products#new
@@ -25,12 +26,23 @@ RailsStore::Application.routes.draw do
 #      product GET    /products/:id(.:format)      products#show
 #              PUT    /products/:id(.:format)      products#update
 #              DELETE /products/:id(.:format)      products#destroy
-#         root        /                            products#index
-#   new_review GET    /new_review(.:format)        reviews#new
-#         cart GET    /cart(.:format)              products#update
-# rake db:migrate once you've checked
+#              GET    /product/cart(.:format)      products#carted_products
+#     yourcart GET    /yourcart(.:format)          products#carted_products
 
-end
+
+
+#       review GET    /reviews/:id(.:format)       reviews#show
+#   new_review GET    /reviews/:id/new(.:format)   reviews#new
+#   new_review GET    /reviews/new(/.:format)      reviews#new
+#              POST   /reviews(.:format)           reviews#create
+#              GET    /reviews/:id/edit(.:format)  products#edit
+#      reviews GET    /reviews(.:format)           reviews#index
+
+
+
+
+
+
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

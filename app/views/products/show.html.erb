@@ -1,5 +1,4 @@
 <p id="notice"><%= notice %></p>
-
 <p>
   <b>Name:</b>
   <%= @product.name %>
@@ -10,18 +9,32 @@
   <%= number_to_currency(@product.price) %>
 </p>
 <p>
+</p>
+
+<h2> Your Cart <h2>
+<%= render 'cart' %>
+<p> 
+</p>
 
 <p>
-  <b><a href="/reviews/new/?product_id=<%= @product[:id] %>">Create A New Review</a></b>
+<h2> Reviews for <%= @product.name %> </h2>
+ <table> 
+    <tr>
+    <th> Review Body </th>
+    <th> Product Rating </th>
+    </tr>
+  <% @product.reviews.each do |review| %>
+  <tr>
+    <td><%= review.body %></td>
+    <td><%= review.rating %> </td>
+  </tr>
+  <% end %>
+</table>
+<p>
+  <b><a class="btn btn-primary" href="/reviews?product_id=<%= @product[:id] %>/new"><i class= "icon-pencil icon-white"></i> Write Review</a></b>
 <p>
 
-<p>
-  <b><a href="/product/cart?product_id=<%= @product.id %>/add-to-cart">Add to Cart</a></b>
-<p>
-
-  <p  <b><a href="/product/cart?product_id=<%= @product.id %>/remove-from-cart">Remove from Cart</a></b>>
-
-<p>
+<%= render 'add_to_cart' %>
 
 
 <%= link_to 'Edit', edit_product_path(@product) %> |

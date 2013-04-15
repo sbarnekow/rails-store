@@ -1,9 +1,12 @@
 class ProductsController < ApplicationController
   
-  before_filter :products_array
+  before_filter :carted_products
   
-  def products_array
-    @products = Product.all.to_a
+  # GET /yourcart
+  # GET /yourcart.json
+  def carted_products
+    @carted_products = Product.where(:in_cart => true)
+    # @subtotal = @carted_products.collect(params[:price])
   end
 
 
@@ -11,7 +14,7 @@ class ProductsController < ApplicationController
   # GET /products.json
   def index
     @products = Product.all
-
+    @carted_products = Product.where(:in_cart => true)
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @products }
@@ -22,7 +25,7 @@ class ProductsController < ApplicationController
   # GET /products/1.json
   def show
     @product = Product.find(params[:id])
-    
+
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @product }
